@@ -31,6 +31,10 @@ export default function RegisterPage() {
       return;
     }
 
+    // ✅ Simpan ke localStorage supaya terbaca di halaman lain
+    localStorage.setItem("customer_name", username);
+    localStorage.setItem("table_number", tableNumber);
+
     // ✅ Redirect ke halaman utama (home) dengan query parameter
     router.push(`/?username=${encodeURIComponent(username)}&table=${encodeURIComponent(tableNumber)}`);
   };

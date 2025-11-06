@@ -77,7 +77,8 @@ export const CartDrawer = ({ cart, total, onClose }: CartDrawerProps) => {
     setLoading(false);
 
     // ✅ Redirect ke halaman pembayaran
-    router.push(`/payment?order_id=${orderData.id}&table=${table}`);
+    router.push(`/payment?order_id=${orderData.id}&table=${table}&username=${username}`);
+
   };
 
   return (
