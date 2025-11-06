@@ -1,9 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
 import { createClient } from "@supabase/supabase-js";
 import Image from "next/image";
 
@@ -19,7 +18,7 @@ type CartItem = {
   qty: number;
 };
 
-export default function PaymentPage() {
+function PaymentContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -181,7 +180,7 @@ export default function PaymentPage() {
                 </h3>
                 <div className="w-52 h-52 mx-auto border-2 border-[#0C2B4E] rounded-lg overflow-hidden">
                   <Image
-                    src="/qris-example.png"
+                    src="/qris.png"
                     alt="QRIS"
                     width={208}
                     height={208}
@@ -209,5 +208,13 @@ export default function PaymentPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function PaymentPage() {
+  return (
+    <Suspense fallback={<div className="text-center mt-10 text-white">Loading...</div>}>
+      <PaymentContent />
+    </Suspense>
   );
 }

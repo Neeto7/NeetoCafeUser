@@ -1,5 +1,6 @@
 "use client";
 
+import { Suspense } from "react";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { supabase } from "@/lib/supabase/client";
@@ -16,7 +17,7 @@ type CartItem = {
   qty: number;
 };
 
-export default function HomePage() {
+function HomePageContent() {
   const searchParams = useSearchParams();
   const username = searchParams.get("username");
   const table = searchParams.get("table");
@@ -78,13 +79,8 @@ export default function HomePage() {
   };
 
   return (
-     <main className="bg-[#0C2B4E]">
+    <main className="bg-[#0C2B4E] min-h-screen">
       <HeaderVideo username={username} table={table} />
-
-      {/* Tambahkan wave separator atau gradient di sini */}
-      <div className="relative">
-        
-      </div>
 
       <MenuCard
         menu={menu}
@@ -92,9 +88,7 @@ export default function HomePage() {
         addToCart={addToCart}
         removeFromCart={removeFromCart}
         cart={cart}
-        
       />
-
 
       <CartButton
         itemCount={cart.length}
@@ -110,5 +104,13 @@ export default function HomePage() {
         />
       )}
     </main>
+  );
+}
+
+export default function Page() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <HomePageContent />
+    </Suspense>
   );
 }
